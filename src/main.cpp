@@ -9,8 +9,8 @@ ROBOT_STATE robot_state = ROBOT_IDLE;
 
 Romi32U4ButtonA buttonA;
 
-int targetSpeedLeft = 100;
-int targetSpeedRight = 100;
+int targetSpeedLeft = 10;
+int targetSpeedRight = 10;
 
 void setup() {
     Serial.begin(115200);
