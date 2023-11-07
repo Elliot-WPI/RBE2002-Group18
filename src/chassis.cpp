@@ -37,7 +37,7 @@ void RomiChassis::UpdateEffortDriveWheelsPI(int target_speed_left, int target_sp
   totalErrorRight = totalErrorRight + diffRight; //total error
   float u_left = Kp * diffLeft + Ki * totalErrorLeft; //total effort for the left
   float u_right = Kp * diffRight + Ki * totalErrorRight; //total effort for the right
-  motors.setEfforts(u_left,u_right); //set motor efforts
+  motors.setEfforts(21,20); //set motor efforts
   SerialPlotter(diffLeft, diffRight, u_left, u_right, currSpeedLeft, currSpeedRight);
 }
 
