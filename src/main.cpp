@@ -14,10 +14,12 @@ ROBOT_STATE robot_state = ROBOT_IDLE;
 Romi32U4ButtonA buttonA; 
 SpeedController PIcontroller;
 WallFollowingController PDcontroller;
+SonarSensor Sonar;
 
 void setup() {
   PIcontroller.Init();
   PDcontroller.Init();
+  Sonar.Init();
 }
 
 void loop() {
@@ -33,13 +35,17 @@ void loop() {
 
       //uncomment this line of code, once you are done with assignments 1 and 2 to demonstrate that your robot
       //is capable of following a wall autonomously.
-      int speed = PDcontroller.Process(30); //distance in [cm]
+      float speed = PDcontroller.Process(30); //distance in [cm]
       PIcontroller.Process(50+speed,50-speed); //speed in [[mm/s]]
-      if(buttonA.getSingleDebouncedRelease()) 
-      {
-        PIcontroller.Stop();
-        robot_state = ROBOT_IDLE;
-      }
+      /*for(int i = 0; i < 30; i++){
+        Serial.println(Sonar.ReadData());*/
+        if(buttonA.getSingleDebouncedRelease()) 
+        {
+          PIcontroller.Stop();
+          robot_state = ROBOT_IDLE;
+        }
+      /*}
+      robot_state = ROBOT_IDLE;*/
       break;
   }
 }

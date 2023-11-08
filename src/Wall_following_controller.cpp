@@ -17,9 +17,9 @@ float WallFollowingController::Process(float target_distance)
   //assignment 2: write a PD controller that outputs speed as a function of distance error
   float Values[5], temp, medianReading; //Creation of Variables
   int j;
-  float speed = 0;
+  float error = 0;
   
-  for(int i = 0; i < 5; i++){ //Getting data array of distances
+  /*for(int i = 0; i < 5; i++){ //Getting data array of distances
     Values[i] = SharpIR.ReadData();
   }
 
@@ -31,8 +31,11 @@ float WallFollowingController::Process(float target_distance)
       j = j-1;
     }
     Values[j+1] = temp;
-  }
-  medianReading = Values[2]; //Finding median distance
-  speed = (medianReading - target_distance)/10; //Target speed will be Sensor - target distance because if we want the right
+  }*/
+  medianReading = SharpIR.ReadData();//Values[2]; //Finding median distance
+  Serial.println(medianReading);
+  E_distance = (medianReading - target_distance)*10; //Target speed will be Sensor - target distance because if we want the right
+  float speed = E_distance * Kp + (E_distance-prev_e_distance) * Kd;
+  prev_e_distance = error;
   return speed;                            // side to speed up (indicating too close), value must be negative
 }

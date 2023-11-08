@@ -17,11 +17,9 @@ float IRsensor::ReadData(void)
   //read out and calibrate your IR sensor, to convert readouts to distance in [cm]
   float m = 3226; //slope
   float b = 111; //b-intercept
-  int sensorAngle = 45; //angle
+  int sensorAngle = 50; //angle
   int sensorFromEdge = 2; //dist from edge
   float distSensor = m/(analogRead(A0)-b); //change ADC to cm
-  float distRomi = distSensor * cos(sensorAngle*PI/180) + sensorFromEdge; //calculate triangle to get side of robot
-  Serial.print("Distance from wall: ");
-  Serial.println(distRomi);
+  float distRomi = distSensor * cos(sensorAngle*PI/180) - sensorFromEdge; //calculate triangle to get side of robot
   return distRomi;
 }
