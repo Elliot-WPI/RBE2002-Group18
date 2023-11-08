@@ -12,7 +12,9 @@ void SpeedController::Init(void)
 
 void SpeedController::Process(float target_velocity_left, float target_velocity_right)
 {
+    Serial.println("Before IF statement");
     if(MagneticEncoder.UpdateEncoderCounts()){
+        Serial.println("In IF Statement");
         float e_left = target_velocity_left - MagneticEncoder.ReadVelocityLeft();
         float e_right = target_velocity_right - MagneticEncoder.ReadVelocityRight();
 

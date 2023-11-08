@@ -33,9 +33,8 @@ void loop() {
 
       //uncomment this line of code, once you are done with assignments 1 and 2 to demonstrate that your robot
       //is capable of following a wall autonomously.
-      //int speed = PDcontroller.Start(30); //distance in [cm]
-      //PIcontroller.Start(50+speed,50-speed); //speed in [[mm/s]]
-      Serial.println(analogRead(A0));
+      int speed = PDcontroller.Process(30); //distance in [cm]
+      PIcontroller.Process(50+speed,50-speed); //speed in [[mm/s]]
       if(buttonA.getSingleDebouncedRelease()) 
       {
         PIcontroller.Stop();

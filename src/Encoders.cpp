@@ -47,7 +47,7 @@ boolean Encoder::UpdateEncoderCounts(void)
     count_right = encoders.getCountsRight();
     previous_time = millis();
     lastUpdate = now;
-    return 1;
+    return true;
   }
-  return 0;
+  return false;
 }
