@@ -9,7 +9,7 @@ class SpeedController{
         const float Ki = 0.1; 
         float E_left = 0; 
         float E_right = 0;
-        int counts = 0; //assignment 1: convert degrees into counts
+        int counts = ((141 * 3.14/2)/(70 * 3.14)) * 1440; //assignment 1: convert degrees into counts
 
     public:
         void Init(void);

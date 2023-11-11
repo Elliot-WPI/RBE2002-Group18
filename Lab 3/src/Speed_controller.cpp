@@ -29,7 +29,7 @@ void SpeedController::Run(float target_velocity_left, float target_velocity_righ
 boolean SpeedController::Turn(int degree, int direction)
 {
     motors.setEfforts(0, 0);
-    int turns = counts*(degree/180.0); //assignment 1: convert degree into counts
+    int turns = counts*(degree/180.0) * turnError; //assignment 1: convert degree into counts
     Serial.println(turns);
     int count_turn = MagneticEncoder.ReadEncoderCountLeft();
 
