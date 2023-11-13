@@ -91,10 +91,23 @@ void Behaviors::Run(void)
         }
         else{
             PIcontroller.Reverse(50,10);
+            robot_state = TURN;
         }
         break;
 
     case TURN:
+        if(buttonA.getSingleDebouncedRelease()){ //transition condition
+            robot_state = IDLE; //next state
+            PIcontroller.Stop(); //action
+        }
+        else if (collisionBehavior.DetectBeingPickedUp()){
+            robot_state = IDLE;// next state
+            PIcontroller.Stop();
+        }
+        else{
+            PIcontroller.Turn(90,1);
+            robot_state = DRIVE;
+        }
         break;
     }
     Serial.println(robot_state);
