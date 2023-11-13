@@ -4,6 +4,8 @@
 #include "IMU.h"
 #include "Speed_controller.h"
 
+Behaviors collisionBehavior;
+
 //sensors
 IMU_sensor LSM6;
 Romi32U4ButtonA buttonA;
@@ -60,7 +62,40 @@ void Behaviors::Run(void)
         }   
         break;
         
-        //assignment 3
+    case DRIVE:
+        if(buttonA.getSingleDebouncedRelease()){ //transition condition
+            robot_state = IDLE; //next state
+            PIcontroller.Stop(); //action
+        }
+        else if(collisionBehavior.DetectCollision()){
+            robot_state = REVERSE; // next state
+            PIcontroller.Stop(); //action
+        }
+        else if (collisionBehavior.DetectBeingPickedUp()){
+            robot_state = IDLE;// next state
+            PIcontroller.Stop();
+        }
+        else{
+            PIcontroller.Run(50,50);
+        }
+        break;
+    
+    case REVERSE:
+        if(buttonA.getSingleDebouncedRelease()){ //transition condition
+            robot_state = IDLE; //next state
+            PIcontroller.Stop(); //action
+        }
+        else if (collisionBehavior.DetectBeingPickedUp()){
+            robot_state = IDLE;// next state
+            PIcontroller.Stop();
+        }
+        else{
+            PIcontroller.Reverse(50,10);
+        }
+        break;
+
+    case TURN:
+        break;
     }
     Serial.println(robot_state);
 }
