@@ -39,7 +39,10 @@ boolean Behaviors::DetectCollision(void)
 
 boolean Behaviors::DetectBeingPickedUp(void)
 {
-    //assignment 2
+    auto data_acc = LSM6.ReadAcceleration();
+    data[2] = med_z.Filter(data_acc.Z)*0.061; // if having trouble detecting being picked up delete this line and use data[2] collected in detect collision
+    if(abs(data[2]) > zThreshold){return 1;}//please work
+    else return 0;
 }
 
 void Behaviors::Stop(void)
