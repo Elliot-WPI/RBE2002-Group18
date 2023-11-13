@@ -2,12 +2,12 @@
 #include <Romi32U4.h>
 #include "Behaviors.h"
 
-Behaviors collisionBehavior;
+Behaviors robot;
 
 void setup() {
-  collisionBehavior.Init();
+  robot.Init();
 }
 
 void loop() {
-  collisionBehavior.Run();
+  robot.Run();
 }
