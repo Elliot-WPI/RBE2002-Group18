@@ -79,7 +79,7 @@ void Behaviors::Run(void)
             PIcontroller.Stop();
         }
         else{
-            PIcontroller.Run(50,50);
+            PIcontroller.Run(80,80);
         }
         break;
     

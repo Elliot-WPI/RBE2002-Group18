@@ -5,8 +5,8 @@
 
 class Behaviors{
     private:
-        int threshold = 400;
-        int zThreshold = 1200;
+        int threshold = 300;
+        int zThreshold = 1100;
         int threshold_pick_up = 1500;//redundant (ignore)
         int data[3] = {0};
         enum ROBOT_STATE {IDLE, DRIVE, REVERSE, TURN};
