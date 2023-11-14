@@ -5,7 +5,7 @@
 
 class Behaviors{
     private:
-        int threshold = 300;
+        int threshold = 30;
         int zThreshold = 1100;
         int threshold_pick_up = 1500;//redundant (ignore)
         int data[3] = {0};
