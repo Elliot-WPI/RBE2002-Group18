@@ -80,6 +80,7 @@ void Behaviors::Run(void)
         }
         else{
             PIcontroller.Run(80,80);
+            
         }
         break;
     
@@ -110,6 +111,7 @@ void Behaviors::Run(void)
         else{
             PIcontroller.Turn(90,1);
             robot_state = DRIVE;
+            delay(100);
         }
         break;
     }
