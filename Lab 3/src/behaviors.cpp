@@ -6,6 +6,9 @@
 
 Behaviors collisionBehavior;
 
+int driveIgnoreCounter;
+int driveIgnoreMax = 100;
+
 //sensors
 IMU_sensor LSM6;
 Romi32U4ButtonA buttonA;
@@ -33,7 +36,16 @@ boolean Behaviors::DetectCollision(void)
     data[0] = med_x.Filter(data_acc.X)*0.061;
     data[1] = med_y.Filter(data_acc.Y)*0.061;
     data[2] = med_z.Filter(data_acc.Z)*0.061;
-    if((abs(data[0]) > threshold) || (abs(data[1]) > threshold)) return 1;
+    if(data[0] > 30){
+    Serial.println("x");
+    Serial.print(data[0]);
+    }
+    if(data[1] > 30){
+    Serial.println("y");
+    Serial.print(data[1]);
+    }
+    if(data[2] > zThreshold){return 0;}
+    else if((data[0] > threshold) || (data[1] > threshold)) return 1;
     else return 0;
 }
 
@@ -58,6 +70,7 @@ void Behaviors::Run(void)
         if(buttonA.getSingleDebouncedRelease()){ //transition condition
             robot_state = DRIVE; 
             PIcontroller.Stop(); //action
+
         } 
         else { //transition condition
             robot_state = IDLE; 
@@ -66,20 +79,24 @@ void Behaviors::Run(void)
         break;
         
     case DRIVE:
+    driveIgnoreCounter++;
         if(buttonA.getSingleDebouncedRelease()){ //transition condition
             robot_state = IDLE; //next state
             PIcontroller.Stop(); //action
+            driveIgnoreCounter = 0;
         }
-        else if(collisionBehavior.DetectCollision()){
+        else if(collisionBehavior.DetectCollision() && (driveIgnoreCounter > driveIgnoreMax)){
             robot_state = REVERSE; // next state
             PIcontroller.Stop(); //action
+            driveIgnoreCounter = 0;
         }
         else if (collisionBehavior.DetectBeingPickedUp()){
             robot_state = IDLE;// next state
             PIcontroller.Stop();
+            driveIgnoreCounter = 0;
         }
         else{
-            PIcontroller.Run(50,50);
+            PIcontroller.Run(80,80);
         }
         break;
     
@@ -113,5 +130,4 @@ void Behaviors::Run(void)
         }
         break;
     }
-    Serial.println(robot_state);
 }
