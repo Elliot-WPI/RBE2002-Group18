@@ -24,23 +24,26 @@ void Behaviors::Run(void)
     switch (robot_state)
     {
     case IDLE:
-        if(buttonA.getSingleDebouncedRelease()){ 
-            robot_state = DRIVE; 
-            robot.Stop();             
-        } 
-        else { 
+        if(buttonA.getSingleDebouncedRelease()){
+            robot_state = DRIVE;
+            robot.Stop();
+        }
+        else {
             robot_state = IDLE;
-            robot.Stop(); 
-        }   
+            robot.Stop();
+        }
         break;
     
     case DRIVE:
         robot_state = DRIVE;
         //assignment
-        robot.Straight(25,10); //velocity, duration
-        robot.Turn(180,0); //degrees, direction
-        robot.Curved(25,75,10); //velocity left, velocity right, duration
-        robot.Stop(); 
+        robot.Curved(42,115, 6); //velocity left, velocity right, duration
+        robot.Turn(90,1); //degrees, direction
+        robot.Straight(30,10); //velocity, duration
+        robot.Turn(90,1); //degrees, direction
+        
+        
+        robot.Stop();
         robot_state = IDLE;
         break;
     }
