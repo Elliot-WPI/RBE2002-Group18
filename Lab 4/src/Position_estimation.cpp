@@ -65,13 +65,13 @@ void Position::UpdatePose(float target_speed_left, float target_speed_right)
 
     if(time_now - time_prev >= 50) //update every 50ms for practical reasons
     {    
-    if()
-    {    
-        updatePoseTurn(target_speed_left, target_speed_right);
-    }
     if(abs(RomiEncoders.ReadVelocityLeft()-RomiEncoders.ReadVelocityRight()) > 10)
     {
         updatePoseStraight(target_speed_left, target_speed_right);
+    }
+    else{    
+        updatePoseTurn(target_speed_left, target_speed_right);
+    }
     }
 }
 
