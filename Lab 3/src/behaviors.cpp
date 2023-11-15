@@ -33,7 +33,16 @@ boolean Behaviors::DetectCollision(void)
     data[0] = med_x.Filter(data_acc.X)*0.061;
     data[1] = med_y.Filter(data_acc.Y)*0.061;
     data[2] = med_z.Filter(data_acc.Z)*0.061;
-    if((abs(data[0]) > threshold) || (abs(data[1]) > threshold)) return 1;
+    if(data[0] > 30){
+    Serial.println("x");
+    Serial.print(data[0]);
+    }
+    if(data[1] > 30){
+    Serial.println("y");
+    Serial.print(data[1]);
+    }
+    if(data[2] > zThreshold){return 0;}
+    else if((data[0] > threshold) || (data[1] > threshold)) return 1;
     else return 0;
 }
 
@@ -80,7 +89,6 @@ void Behaviors::Run(void)
         }
         else{
             PIcontroller.Run(80,80);
-            
         }
         break;
     
