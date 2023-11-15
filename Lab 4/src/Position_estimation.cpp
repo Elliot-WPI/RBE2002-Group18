@@ -7,7 +7,7 @@ float y = 0;
 float theta = 0;
 unsigned long time_prev = millis();
 unsigned long time_now = 0;
-
+float timeStep = 0.05;
 
 void Position::Init(void)
 {
@@ -39,21 +39,33 @@ void Position::PrintPose(void)
     Serial.println(theta);
 }
 
+void updatePoseTurn(float target_speed_left, float target_speed_right)
+{
+    float w;
+    float R;
+    float V;
+    R = (target_speed_right+target_speed_left)/2*(target_speed_right-target_speed_left);
+    w = (target_speed_left-target_speed_right)/0.142875;
+    theta = theta + w * timeStep;
+    V = (target_speed_left+target_speed_right)/2;
+    x = x + V*cos(theta) * timeStep;
+    y = y + V*sin(theta)*timeStep;
+}
+void updatePoseStraight(float target_speed_left, float target_speed_right)
+{
+    float V = (target_speed_left+target_speed_right)/2;
+    x = x + V * cos(theta) + timeStep;
+    y = y + V* sin(theta) + timeStep;
+    
+}
 void Position::UpdatePose(float target_speed_left, float target_speed_right)
 {
-    double w;
-    double R;
-    double V;
+    
     time_now = millis();
+
     if(time_now - time_prev >= 50) //update every 50ms for practical reasons
     {    
-        R = (target_speed_right+target_speed_left)/2*(target_speed_right-target_speed_left);
-        w = (target_speed_left-target_speed_right)/l;
-        theta = theta + w * 0.05;
-        V = (target_speed_left+target_speed_right)/2;
-        x = x + V*cos(theta)*0.05;
-        y = y + V*sin(theta)*0.05;
-
+    
         //assignment
     }
 }
