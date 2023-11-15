@@ -4,7 +4,7 @@
 #include "Position_estimation.h"
 
 Romi32U4Motors motors;
-Encoder MagneticEncoder; 
+Encoder MagneticEncoder;
 Position odometry;
 
 void SpeedController::Init(void)
