@@ -22,8 +22,8 @@ void SpeedController::Run(float target_velocity_left, float target_velocity_righ
         E_left += e_left;
         E_right += e_right;
 
-        float u_left = Kp*e_left + Ki*E_left;
-        float u_right = Kp*e_right + Ki*E_right;
+        float u_left = leftKp*e_left + Ki*E_left;
+        float u_right = rightKp*e_right + Ki*E_right;
 
         motors.setEfforts(u_left,u_right);
         odometry.UpdatePose(target_velocity_left,target_velocity_right); //this is where your newly programmed function is/will be called

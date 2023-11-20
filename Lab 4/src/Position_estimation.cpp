@@ -2,9 +2,7 @@
 #include "Encoders.h"
 
 Encoder RomiEncoders;
-float x = 0;
-float y = 0;
-float theta = 0;
+
 unsigned long time_prev = millis();
 unsigned long time_now = 0;
 float timeStep = 0.05;
@@ -39,23 +37,23 @@ void Position::PrintPose(void)
     Serial.println(theta);
 }
 
-void updatePoseTurn(float target_speed_left, float target_speed_right)
+void Position::updatePoseTurn(float target_speed_left, float target_speed_right)
 {
     float w;
     float R;
     float V;
     R = (target_speed_right+target_speed_left)/2*(target_speed_right-target_speed_left);
-    w = (target_speed_left-target_speed_right)/0.142875;
+    w = (target_speed_left-target_speed_right)/l;
     theta = theta + w * timeStep;
     V = (target_speed_left+target_speed_right)/2;
     x = x + V*cos(theta) * timeStep;
     y = y + V*sin(theta)*timeStep;
 }
-void updatePoseStraight(float target_speed_left, float target_speed_right)
+void Position::updatePoseStraight(float target_speed_left, float target_speed_right)
 {
     float V = (target_speed_left+target_speed_right)/2;
-    x = x + V * cos(theta) + timeStep;
-    y = y + V* sin(theta) + timeStep;
+    x = x + V * cos(theta) * timeStep;
+    y = y + V* sin(theta) * timeStep;
     
 }
 void Position::UpdatePose(float target_speed_left, float target_speed_right)
@@ -73,6 +71,6 @@ void Position::UpdatePose(float target_speed_left, float target_speed_right)
         updatePoseTurn(target_speed_left, target_speed_right);
     }
     }
-    Serial.print(String(x) + " " + String(y) + " " + String(theta));
+    PrintPose();
 }
 
