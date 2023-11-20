@@ -37,11 +37,19 @@ void Behaviors::Run(void)
     case DRIVE:
         robot_state = DRIVE;
         //assignment
-        robot.Curved(42,115, 6); //velocity left, velocity right, duration
-        robot.Turn(90,1); //degrees, direction
-        robot.Straight(30,10); //velocity, duration
-        robot.Turn(90,1); //degrees, direction
-        
+        //robot.Curved(42,115, 6); //velocity left, velocity right, duration //the commented stuff is the calculated semi-circle, the code below tjat is just a square to test shit
+        //robot.Turn(90,1); //degrees, direction
+        //robot.Straight(30,10); //velocity, duration
+        //robot.Turn(90,1); //degrees, direction
+        robot.Straight(100, 3);
+        robot.Turn(90, 1);
+        robot.Straight(100,3);
+        robot.Turn(90, 1);
+        robot.Straight(100, 3);
+        robot.Turn(90, 1);
+        robot.Straight(100,3);
+        robot.Turn(90, 1);
+
         
         robot.Stop();
         robot_state = IDLE;

@@ -5,11 +5,12 @@
 
 class SpeedController{
     private:
-        const float Kp = 0.5; //Adapt the parameters until your robot moves at the speed you command it to drive
+        const float Kp = 0.6; //Adapt the parameters until your robot moves at the speed you command it to drive
         const float Ki = 0.1; 
         float E_left = 0; 
         float E_right = 0;
-        int counts = ((141 * 3.14/2)/(70 * 3.14)) * 1440; //assignment
+        float turnError = .98;//error for accurate turning  after 
+        int counts = ((141 * 3.14/2)/(70 * 3.14)) * 1440 * turnError; //assignment
 
     public:
         void Init(void);
