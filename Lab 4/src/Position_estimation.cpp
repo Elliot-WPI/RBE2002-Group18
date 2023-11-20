@@ -73,6 +73,6 @@ void Position::UpdatePose(float target_speed_left, float target_speed_right)
         updatePoseTurn(target_speed_left, target_speed_right);
     }
     }
-    Serial.print(String(x) + ", " + String(y) + ", " + String(theta));
+    Serial.print(String(x) + " " + String(y) + " " + String(theta));
 }
 

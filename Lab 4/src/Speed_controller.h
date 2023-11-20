@@ -10,7 +10,7 @@ class SpeedController{
         float E_left = 0; 
         float E_right = 0;
         float turnError = .98;//error for accurate turning  after 
-        int counts = ((141 * 3.14/2)/(70 * 3.14)) * 1440 * turnError; //assignment
+        int counts = ((141 * 3.14/2)/(70 * 3.14)) * 1440; //assignment
 
     public:
         void Init(void);
