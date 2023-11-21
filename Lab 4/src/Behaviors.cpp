@@ -41,16 +41,7 @@ void Behaviors::Run(void)
         //robot.Turn(90,1); //degrees, direction
         //robot.Straight(30,10); //velocity, duration
         //robot.Turn(90,1); //degrees, direction
-        robot.Straight(100, 3);
-        robot.Turn(90, 1);
-        robot.Straight(100,3);
-        robot.Turn(90, 1);
-        robot.Straight(100, 3);
-        robot.Turn(90, 1);
-        robot.Straight(100,3);
-        robot.Turn(90, 1);
-
-        
+        robot.Curved(12,41,30);        
         robot.Stop();
         robot_state = IDLE;
         break;

@@ -10,7 +10,7 @@ class SpeedController{
         const float Ki = 0.15; 
         float E_left = 0; 
         float E_right = 0;
-        float turnError = .70;//error for accurate turning  after 
+        float turnError = .2;//error for accurate turning  after 
         int counts = ((140.0 * 3.14/2)/(70.0 * 3.14)) * 1440.0 * turnError; //assignment
 
     public:
