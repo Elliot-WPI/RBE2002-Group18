@@ -10,7 +10,10 @@ uint8_t OpenMV::getTagCount(void)
      * We should probably check to make sure we don't accidenally read a tag.
      * All tags start with 0xAA55, so if we get 0x55, then we should throw an error...someday...
      */
-    if (Wire.requestFrom(CAMERA_I2C_ADDRESS, (uint8_t)1, true) == 1) tagCount = Wire.read();
+
+    if (Wire.requestFrom(CAMERA_I2C_ADDRESS, (uint8_t)1, true) == 1){
+      tagCount = Wire.read();
+    } 
 
     return tagCount;
 }

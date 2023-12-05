@@ -12,10 +12,14 @@ class RomiChassis{
         const float C_wheel = 2*PI*R_wheel; //circumference of wheel
 
         //declare variables for PI controller
-        float target_left = 0;
-        float target_right = 0;
-        float Kp = 0.3;
-        float Ki = 0.1;
+        float current_cx = 0;
+        float current_area = 0;
+        int target_cx = 80;
+        int target_area = 1225;
+        float KpCx = 0.3;
+        float KiCx = 0.1;
+        float KpArea = 0.05;
+        float KiArea = 0.01;
         float E_left = 0; //accumulated errors
         float E_right = 0;
 
@@ -36,18 +40,8 @@ class RomiChassis{
 
 
     public:
-        float SpeedLeft(void);
-        float SpeedRight(void);
-
-        void UpdateEffortDriveWheels(int a, int b);
-        void UpdateEffortDriveWheelsP(int a, int b);
         void UpdateEffortDriveWheelsPI(int a, int b);
 
-        void MotorControl(void);
-        void SerialPlotter(float a, float b, float c, float d, float f, float g);
-
-        void StartDriving(float, float, uint32_t);
-        bool CheckDriveComplete(void);
         void Stop(void);
 };
 
