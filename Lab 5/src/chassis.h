@@ -16,9 +16,9 @@ class RomiChassis{
         float current_area = 0;
         int target_cx = 80;
         int target_area = 1225;
-        float KpCx = 0.3;
-        float KiCx = 0.1;
-        float KpArea = 0.05;
+        float KpCx = 0.15;
+        float KiCx = 0.05;
+        float KpArea = 0.03;
         float KiArea = 0.01;
         float E_left = 0; //accumulated errors
         float E_right = 0;
@@ -41,7 +41,7 @@ class RomiChassis{
 
     public:
         void UpdateEffortDriveWheelsPI(int a, int b);
-
+        void setSpeed(int a, int b);
         void Stop(void);
 };
 

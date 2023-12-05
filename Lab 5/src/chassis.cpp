@@ -27,10 +27,11 @@ void RomiChassis::UpdateEffortDriveWheelsPI(int current_cx, int current_area)
   if(targetRight < -300){
     targetRight = -300;
   }
-  Serial.println(targetLeft);
-  Serial.println(targetRight);
-  Serial.println();
   motors.setEfforts(targetLeft,targetRight); //set motor efforts
+}
+
+void RomiChassis::setSpeed(int a, int b){
+  motors.setEfforts(a, b);
 }
 
 void RomiChassis::Stop(void)

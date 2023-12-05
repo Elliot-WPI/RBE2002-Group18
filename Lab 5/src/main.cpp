@@ -9,10 +9,11 @@
 #include <Wire.h>
 #include "openmv.h"
 
-enum ROBOT_STATE {ROBOT_IDLE, FIND_TAGS, ROBOT_DRIVING};
+enum ROBOT_STATE {ROBOT_IDLE, FIND_TAGS, ROBOT_DRIVING, ROBOT_RUNNING};
 ROBOT_STATE robot_state = ROBOT_IDLE;
 
 Romi32U4ButtonA buttonA; 
+Romi32U4ButtonB buttonB;
 SpeedController PIcontroller;
 
 RomiChassis chassis;
@@ -40,8 +41,8 @@ void loop() {
   switch(robot_state)
   {
     case ROBOT_IDLE:{
-      Serial.println("idle");
       if(buttonA.getSingleDebouncedRelease()) robot_state = FIND_TAGS;
+      //if(buttonA.getSingleDebouncedRelease()) robot_state = ROBOT_RUNNING;
       break;
     }
 
@@ -49,16 +50,11 @@ void loop() {
       uint8_t tagCount = camera.getTagCount();
       if(tagCount)
       {
-        Serial.println("in tagCount");
         camera.readTag(tag);
-        Serial.println(tag.id);
         if(tag.id == 1){
-          Serial.println("in if statement");
           area = tag.w*tag.h;
           cx = tag.cx;
-          Serial.println(area);
           robot_state = ROBOT_DRIVING;
-          Serial.println("robot driving");
           break;
         }
       }
@@ -67,13 +63,10 @@ void loop() {
         //PIcontroller.Stop();
         robot_state = ROBOT_IDLE;
       }
-      Serial.println("got to break");
-      Serial.println(robot_state);
       break;
   }
     case ROBOT_DRIVING:{
-      Serial.println("in driving");
-      while((cx >= 85 || cx <= 75) || (area >= 1250 || area <= 1200)){
+      while((cx >= 82 || cx <= 78) || (area >= 1250 || area <= 1200)){
         if(cx != -1){
           if(buttonA.getSingleDebouncedRelease()) 
           {
@@ -84,12 +77,12 @@ void loop() {
           camera.readTag(tag);
           cx = tag.cx;
           area = tag.w*tag.h;
-          Serial.print("Value = ");
-          Serial.println(cx);
         }
         else{
           chassis.Stop();
           robot_state = FIND_TAGS;
+          cx = 80;
+          area = 1225;
           break;
         }
       }
@@ -98,6 +91,16 @@ void loop() {
       if(buttonA.getSingleDebouncedRelease()) 
       {
         //PIcontroller.Stop();
+        robot_state = ROBOT_IDLE;
+      }
+      break;
+    }
+    case ROBOT_RUNNING:{
+      chassis.setSpeed(150,160);
+      if(buttonA.getSingleDebouncedRelease()) 
+      {
+        //PIcontroller.Stop();
+        chassis.Stop();
         robot_state = ROBOT_IDLE;
       }
     }
